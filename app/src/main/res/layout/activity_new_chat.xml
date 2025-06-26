@@ -22,7 +22,7 @@
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No users available"
+        android:text="No contacts found"
         android:gravity="center"
         android:visibility="gone" />
 

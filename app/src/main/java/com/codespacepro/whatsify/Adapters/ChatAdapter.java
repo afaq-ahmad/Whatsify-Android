@@ -43,6 +43,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         Chat chat = mDataList.get(position);
         holder.Fullname.setText(chat.getFullname());
         holder.Email.setText(chat.getEmail());
+        holder.Status.setText(chat.isOnline() ? "Online" : "Offline");
         // Glide.with(mContext).load(chat.getProfile()).placeholder(R.drawable.avatar_profile).into(holder.Profile);
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -59,7 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView Fullname, Email;
+        TextView Fullname, Email, Status;
         CircleImageView Profile;
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,7 +68,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
             Fullname = itemView.findViewById(R.id.nav_fullname);
             Email = itemView.findViewById(R.id.nav_gmail);
-            Profile = itemView.findViewById(R.id.nav_profile);
+            Status = itemView.findViewById(R.id.nav_status);
+            Profile = itemView.findViewById(R.id.nav_chat_profile);
         }
     }
 }
