@@ -13,6 +13,8 @@ import com.codespacepro.whatsify.Models.Message;
 import com.codespacepro.whatsify.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -54,8 +56,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Message message = messages.get(position);
         if (holder instanceof SentViewHolder) {
             ((SentViewHolder) holder).message.setText(message.getText());
+            ((SentViewHolder) holder).info.setText(formatInfo(message));
         } else {
             ((ReceivedViewHolder) holder).message.setText(message.getText());
+            ((ReceivedViewHolder) holder).info.setText(formatInfo(message));
         }
     }
 
@@ -64,19 +68,37 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return messages.size();
     }
 
+    private String formatInfo(Message message) {
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date(message.getTimestamp()));
+        String status;
+        switch (message.getStatus()) {
+            case 2:
+                status = "read";
+                break;
+            case 1:
+                status = "delivered";
+                break;
+            default:
+                status = "sent";
+        }
+        return time + " • " + status;
+    }
+
     static class SentViewHolder extends RecyclerView.ViewHolder {
-        TextView message;
+        TextView message, info;
         SentViewHolder(@NonNull View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.text_message_sent);
+            info = itemView.findViewById(R.id.text_message_sent_info);
         }
     }
 
     static class ReceivedViewHolder extends RecyclerView.ViewHolder {
-        TextView message;
+        TextView message, info;
         ReceivedViewHolder(@NonNull View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.text_message_received);
+            info = itemView.findViewById(R.id.text_message_received_info);
         }
     }
 }
