@@ -19,10 +19,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context mContext;
     private List<Chat> mDataList;
+    public interface OnChatClickListener {
+        void onChatClick(Chat chat);
+    }
 
-    public ChatAdapter(Context mContext, List<Chat> mDataList) {
+    private OnChatClickListener listener;
+    public ChatAdapter(Context mContext, List<Chat> mDataList, OnChatClickListener listener) {
         this.mContext = mContext;
         this.mDataList = mDataList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -39,6 +44,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.Fullname.setText(chat.getFullname());
         holder.Email.setText(chat.getEmail());
         // Glide.with(mContext).load(chat.getProfile()).placeholder(R.drawable.avatar_profile).into(holder.Profile);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onChatClick(chat);
+            }
+        });
 
     }
 

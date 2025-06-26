@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codespacepro.whatsify.Adapters.ViewPagerAdapter;
+import com.codespacepro.whatsify.Activities.ContactsActivity;
 import com.codespacepro.whatsify.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -111,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_new_starred_messages:
                 Toast.makeText(this, "New Starred Messages", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_contacts:
+                startActivity(new Intent(this, ContactsActivity.class));
                 return true;
             case R.id.nav_settings:
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
