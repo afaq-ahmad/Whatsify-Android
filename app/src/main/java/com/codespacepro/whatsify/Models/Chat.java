@@ -4,6 +4,7 @@ public class Chat {
     String profile, fullname, lastmessage;
     String username, email, uid;
     Long pic;
+    boolean online;
 
 
     public Chat() {
@@ -19,6 +20,13 @@ public class Chat {
         this.uid = uid;
         this.email = email;
         this.fullname = fullname;
+    }
+
+    public Chat(String uid, String email, String fullname, boolean online) {
+        this.uid = uid;
+        this.email = email;
+        this.fullname = fullname;
+        this.online = online;
     }
 
 
@@ -68,5 +76,13 @@ public class Chat {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 }

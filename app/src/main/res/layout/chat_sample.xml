@@ -45,6 +45,16 @@
             android:textColor="@color/black"
             />
 
+        <TextView
+            android:id="@+id/nav_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="18dp"
+            android:text="Offline"
+            android:textColor="@color/black"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
