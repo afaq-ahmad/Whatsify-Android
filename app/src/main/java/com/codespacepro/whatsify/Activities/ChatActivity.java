@@ -75,6 +75,10 @@ public class ChatActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Message message = dataSnapshot.getValue(Message.class);
                     if (message != null) {
+                        if (!message.getSenderId().equals(senderId) && message.getStatus() < 2) {
+                            message.setStatus(2);
+                            dataSnapshot.getRef().setValue(message);
+                        }
                         messages.add(message);
                     }
                 }
@@ -92,7 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         String text = messageBox.getText().toString().trim();
         if (TextUtils.isEmpty(text)) return;
         long timestamp = System.currentTimeMillis();
-        Message message = new Message(senderId, text, timestamp);
+        Message message = new Message(senderId, text, timestamp, 0);
         String senderRoom = senderId + receiverId;
         String receiverRoom = receiverId + senderId;
         String key = messagesRef.child(senderRoom).push().getKey();
