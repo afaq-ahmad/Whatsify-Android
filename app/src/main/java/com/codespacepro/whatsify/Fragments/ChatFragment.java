@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.codespacepro.whatsify.Adapters.ChatAdapter;
 import com.codespacepro.whatsify.Models.Chat;
 import com.codespacepro.whatsify.Models.Users;
 import com.codespacepro.whatsify.R;
+import com.codespacepro.whatsify.Activities.ChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,19 +79,23 @@ public class ChatFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usersArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.child("Users").getChildren()) {
-                    usersArrayList.clear();
                     if (dataSnapshot.hasChild("email") && dataSnapshot.hasChild("fullname")) {
                         String email = dataSnapshot.child("email").getValue(String.class);
                         String fullname = dataSnapshot.child("fullname").getValue(String.class);
+                        String uid = dataSnapshot.getKey();
 
-
-                        Chat chat = new Chat(email, fullname);
+                        Chat chat = new Chat(uid, email, fullname);
                         usersArrayList.add(chat);
                     }
 
                 }
-                recyclerView.setAdapter(new ChatAdapter(getContext(), usersArrayList));
+                recyclerView.setAdapter(new ChatAdapter(getContext(), usersArrayList, chat -> {
+                    Intent intent = new Intent(getContext(), ChatActivity.class);
+                    intent.putExtra("receiverId", chat.getUid());
+                    startActivity(intent);
+                }));
             }
 
             @Override

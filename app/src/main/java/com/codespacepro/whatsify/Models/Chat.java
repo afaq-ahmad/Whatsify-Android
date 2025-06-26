@@ -2,7 +2,7 @@ package com.codespacepro.whatsify.Models;
 
 public class Chat {
     String profile, fullname, lastmessage;
-    String username, email;
+    String username, email, uid;
     Long pic;
 
 
@@ -15,7 +15,8 @@ public class Chat {
 //    }
 
 
-    public Chat(String email, String fullname) {
+    public Chat(String uid, String email, String fullname) {
+        this.uid = uid;
         this.email = email;
         this.fullname = fullname;
     }
@@ -59,5 +60,13 @@ public class Chat {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
