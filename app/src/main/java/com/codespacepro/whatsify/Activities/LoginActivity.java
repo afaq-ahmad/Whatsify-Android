@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText Email, Password;
     Button Login;
+
     TextView LoginToSignup;
 
     FirebaseAuth mAuth;
