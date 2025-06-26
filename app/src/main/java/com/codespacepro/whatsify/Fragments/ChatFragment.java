@@ -13,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import android.content.Intent;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.codespacepro.whatsify.Adapters.ChatAdapter;
 import com.codespacepro.whatsify.Models.Chat;
 import com.codespacepro.whatsify.Models.Users;
 import com.codespacepro.whatsify.R;
 import com.codespacepro.whatsify.Activities.ChatActivity;
+import com.codespacepro.whatsify.Activities.ContactsActivity;
+import com.codespacepro.whatsify.Activities.NewChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +45,7 @@ public class ChatFragment extends Fragment {
     List<Chat> usersArrayList = new ArrayList<>();
     FirebaseDatabase database;
     DatabaseReference myRef;
+    FloatingActionButton addContactBtn, startChatBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +56,17 @@ public class ChatFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         recyclerView = view.findViewById(R.id.recyclerviewchat);
+        addContactBtn = view.findViewById(R.id.btn_add_contact);
+        startChatBtn = view.findViewById(R.id.btn_start_chat);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        addContactBtn.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), ContactsActivity.class)));
+
+        startChatBtn.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), NewChatActivity.class)));
 
 //        database.getReference("Users").addValueEventListener(new ValueEventListener() {
 //            @SuppressLint("NotifyDataSetChanged")
